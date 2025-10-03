@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ShareSpace</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RTL Support -->
+    <style>
+        /* RTL Language Support */
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .rtl .text-left {
+            text-align: right !important;
+        }
+        
+        .rtl .text-right {
+            text-align: left !important;
+        }
+        
+        .rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+            margin-right: calc(2rem * var(--tw-space-x-reverse));
+            margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+        }
+        
+        .rtl .ml-auto {
+            margin-right: auto !important;
+            margin-left: 0 !important;
+        }
+        
+        .rtl .mr-auto {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+        }
+        
+        .rtl .left-0 {
+            right: 0 !important;
+            left: auto !important;
+        }
+        
+        .rtl .right-0 {
+            left: 0 !important;
+            right: auto !important;
+        }
+        
+        .rtl .left-1\/2 {
+            right: 50% !important;
+            left: auto !important;
+        }
+        
+        .rtl .right-1\/2 {
+            left: 50% !important;
+            right: auto !important;
+        }
+        
+        .rtl .pl-4 {
+            padding-right: 1rem !important;
+            padding-left: 0 !important;
+        }
+        
+        .rtl .pr-4 {
+            padding-left: 1rem !important;
+            padding-right: 0 !important;
+        }
+        
+        /* Language Switcher */
+        .language-switcher {
+            margin-left: 1rem;
+        }
+        
+        .rtl .language-switcher {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
+        
+        .language-select {
+            padding: 0.5rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .language-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+    
+    <style>
+        :root {
+            --primary-blue: #3B82F6;
+            --success-green: #10B981;
+            --text-dark: #1F2937;
+            --bg-light: #F8F9FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 4rem;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #6B7280;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .hero-stat {
+            text-align: center;
+        }
+        
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-stat-label {
+            color: #6B7280;
+            font-weight: 500;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6B7280;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* Mission Section */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .mission-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary-blue), #8B5CF6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .mission-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .mission-description {
+            color: #6B7280;
+            line-height: 1.7;
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-blue), #8B5CF6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+        
+        .feature-content p {
+            color: #6B7280;
+            line-height: 1.6;
+        }
+        
+        /* Community Section */
+        .community-section {
+            background: var(--bg-light);
+            padding: 5rem 0;
+        }
+        
+        .community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .community-stat-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .community-stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-stat-label {
+            color: #6B7280;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .community-stat-description {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), #8B5CF6);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cta-btn-primary {
+            background: white;
+            color: var(--primary-blue);
+        }
+        
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-btn-secondary:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mission-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .stat-counter {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="logo" data-translate="logo">ShareSpace</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium" data-translate="home">Home</a>
+                    <a href="gallery.html" class="text-gray-700 hover:text-blue-600 font-medium" data-translate="gallery">Gallery</a>
+                    <a href="upload.html" class="text-gray-700 hover:text-blue-600 font-medium" data-translate="upload">Upload</a>
+                    <a href="about.html" class="text-blue-600 font-medium" data-translate="about">About</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="hero-title fade-in">Share Your Vision</h1>
+            <p class="hero-subtitle fade-in">ShareSpace is a revolutionary platform that empowers creators to share their visual stories with the world, without barriers or limitations.</p>
+            
+            <div class="hero-stats fade-in">
+                <div class="hero-stat">
+                    <div class="hero-stat-number stat-counter" data-target="50000">0</div>
+                    <div class="hero-stat-label">Active Users</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number stat-counter" data-target="250000">0</div>
+                    <div class="hero-stat-label">Media Shared</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number stat-counter" data-target="180">0</div>
+                    <div class="hero-stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title fade-in">Our Mission</h2>
+            <p class="section-subtitle fade-in">We believe in the power of visual storytelling and the importance of creative expression without boundaries.</p>
+            
+            <div class="mission-grid">
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">
+                        <svg width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mission-title">No Barriers</h3>
+                    <p class="mission-description">We eliminate the traditional barriers to sharing visual content. No accounts required, no upload limits, no watermarks - just pure creative expression.</p>
+                </div>
+                
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">
+                        <svg width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0L1.5 5.5V14h13V5.5L8 0zM2.5 6.5v7h10v-7l-5-3.5L2.5 6.5z"/>
+                            <path d="M6.5 8.5v5h3v-5h-3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mission-title">Instant Sharing</h3>
+                    <p class="mission-description">Share your moments instantly with the world. Our platform is designed for speed and simplicity, making visual sharing as easy as drag and drop.</p>
+                </div>
+                
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">
+                        <svg width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mission-title">Community First</h3>
+                    <p class="mission-description">Build a global community of visual storytellers. Connect with creators from around the world and discover diverse perspectives through their lenses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title fade-in">Platform Features</h2>
+            <p class="section-subtitle fade-in">Discover the powerful features that make ShareSpace the ultimate platform for visual content sharing.</p>
+            
+            <div class="features-grid">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Drag & Drop Upload</h3>
+                        <p>Simply drag your files from your device and drop them anywhere on the page. Our intelligent upload system handles the rest with real-time progress tracking.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Lightbox Gallery</h3>
+                        <p>Experience your content in a beautiful, full-screen lightbox viewer with smooth transitions and keyboard navigation support.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Advanced Filtering</h3>
+                        <p>Find exactly what you're looking for with powerful filtering options by media type, date, size, and custom categories.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Smart Compression</h3>
+                        <p>Automatic optimization reduces file sizes while maintaining visual quality, ensuring fast loading times across all devices.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zM8 1.5a.5.5 0 0 1 .5.5V5a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V2a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Privacy Controls</h3>
+                        <p>Choose who can view your content with flexible privacy settings. Keep it public, private, or share with specific individuals.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Social Integration</h3>
+                        <p>Share your content across multiple platforms with one-click social media integration and custom sharing links.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title fade-in">Our Community</h2>
+            <p class="section-subtitle fade-in">Join a thriving global community of visual storytellers, artists, and creators who share our passion for unfiltered creative expression.</p>
+            
+            <div class="community-stats">
+                <div class="community-stat-card fade-in">
+                    <div class="community-stat-number stat-counter" data-target="50000">0</div>
+                    <div class="community-stat-label">Active Creators</div>
+                    <div class="community-stat-description">Photographers, videographers, and digital artists sharing their work daily</div>
+                </div>
+                
+                <div class="community-stat-card fade-in">
+                    <div class="community-stat-number stat-counter" data-target="250000">0</div>
+                    <div class="community-stat-label">Media Shared</div>
+                    <div class="community-stat-description">Photos and videos from every corner of the globe, spanning every genre</div>
+                </div>
+                
+                <div class="community-stat-card fade-in">
+                    <div class="community-stat-number stat-counter" data-target="180">0</div>
+                    <div class="community-stat-label">Countries</div>
+                    <div class="community-stat-description">A truly global platform connecting creators across continents and cultures</div>
+                </div>
+                
+                <div class="community-stat-card fade-in">
+                    <div class="community-stat-number stat-counter" data-target="99.9">0</div>
+                    <div class="community-stat-label">Uptime</div>
+                    <div class="community-stat-description">Reliable service ensuring your content is always accessible when you need it</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="cta-title fade-in">Ready to Share Your Vision?</h2>
+            <p class="cta-description fade-in">Join thousands of creators who have already discovered the freedom of unrestricted visual sharing. Start uploading today and become part of our global community.</p>
+            
+            <div class="cta-buttons fade-in">
+                <a href="upload.html" class="cta-btn cta-btn-primary">Start Uploading</a>
+                <a href="gallery.html" class="cta-btn cta-btn-secondary">Explore Gallery</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p data-translate="copyright">&copy; 2024 ShareSpace. Built for creative expression and community sharing.</p>
+        </div>
+    </footer>
+
+    <!-- Translations -->
+    <script src="translations.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    <script>
+        // About page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            opacity: [0, 1],
+                            translateY: [50, 0],
+                            duration: 800,
+                            easing: 'easeOutQuad',
+                            delay: entry.target.classList.contains('fade-in') ? 0 : Math.random() * 200
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in, .mission-card, .feature-item, .community-stat-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Animate counters
+            setTimeout(() => {
+                document.querySelectorAll('.stat-counter').forEach(counter => {
+                    const target = parseFloat(counter.dataset.target);
+                    const duration = 2000;
+                    
+                    anime({
+                        targets: { count: 0 },
+                        count: target,
+                        duration: duration,
+                        easing: 'easeOutQuad',
+                        update: function(anim) {
+                            const value = anim.animatables[0].target.count;
+                            if (target % 1 === 0) {
+                                counter.textContent = Math.round(value).toLocaleString();
+                            } else {
+                                counter.textContent = value.toFixed(1);
+                            }
+                        }
+                    });
+                });
+            }, 500);
+
+            // Animate hero elements
+            anime.timeline()
+                .add({
+                    targets: '.hero-title',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                })
+                .add({
+                    targets: '.hero-subtitle',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                }, '-=400')
+                .add({
+                    targets: '.hero-stats',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 800,
+                    easing: 'easeOutQuad'
+                }, '-=400');
+        });
+    </script>
+</body>
+</html>
